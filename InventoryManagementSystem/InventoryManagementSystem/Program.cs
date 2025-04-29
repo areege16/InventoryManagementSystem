@@ -1,4 +1,5 @@
-
+//
+//
 namespace InventoryManagementSystem
 {
     public class Program
