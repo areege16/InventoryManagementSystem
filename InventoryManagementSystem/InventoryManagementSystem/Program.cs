@@ -1,5 +1,15 @@
 //
 //
+using InventoryManagementSystem.Data;
+using InventoryManagementSystem.Models;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
+using System.Text;
+
 namespace InventoryManagementSystem
 {
     public class Program
@@ -11,6 +21,46 @@ namespace InventoryManagementSystem
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            //connectionString
+            builder.Services.AddDbContext<InventoryContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            //for authentication
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<InventoryContext>();
+
+            //setting authentication middleware check using JWT Token
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new()
+                    {
+                        ValidateIssuer = false,
+                        ValidIssuer = builder.Configuration["JWT:Iss"],
+                        ValidateAudience = false,
+                        ValidAudience = builder.Configuration["JWT:Aud"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+                    };
+                });
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
