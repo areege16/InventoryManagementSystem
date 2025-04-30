@@ -1,7 +1,10 @@
-//
-//
+using InventoryManagementSystem.CQRS.Commands;
 using InventoryManagementSystem.Data;
+using InventoryManagementSystem.Interfaces;
+using InventoryManagementSystem.Mappings;
 using InventoryManagementSystem.Models;
+using InventoryManagementSystem.Repositories;
+using InventoryManagementSystem.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +24,14 @@ namespace InventoryManagementSystem
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+            //builder.Services.AddMediatR(typeof(Program).Assembly);
+            builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
+
+            builder.Services.AddScoped<IproductRepository, ProductRepository>();
 
             //connectionString
             builder.Services.AddDbContext<InventoryContext>(option =>
@@ -74,6 +84,7 @@ namespace InventoryManagementSystem
                 app.UseSwaggerUI();
             }
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

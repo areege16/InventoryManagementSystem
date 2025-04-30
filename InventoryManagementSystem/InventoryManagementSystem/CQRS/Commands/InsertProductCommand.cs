@@ -1,8 +1,8 @@
-﻿using InventoryManagementSystem.Models;
+﻿using InventoryManagementSystem.DTO;
+using InventoryManagementSystem.Models;
 using MediatR;
 
 namespace InventoryManagementSystem.CQRS.Commands
 {
-    public record InsertProductCommand(Product Product): IRequest<Product>;
-   
+    public record InsertProductCommand(InsertProductDTO Product): IRequest<ResponseDTO<ProductDto>>;
 }

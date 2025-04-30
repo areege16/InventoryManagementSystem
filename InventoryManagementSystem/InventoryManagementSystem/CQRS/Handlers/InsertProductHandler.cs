@@ -1,23 +1,26 @@
 ﻿using InventoryManagementSystem.CQRS.Commands;
-using InventoryManagementSystem.Data;
+using InventoryManagementSystem.DTO;
+using InventoryManagementSystem.Interfaces;
 using InventoryManagementSystem.Models;
+using InventoryManagementSystem.Services;
 using MediatR;
 
 namespace InventoryManagementSystem.CQRS.Handlers
 {
-    public class InsertProductHandler : IRequestHandler<InsertProductCommand, Product>
+    public class InsertProductHandler : IRequestHandler<InsertProductCommand, ResponseDTO<ProductDto>>
     {
-        private readonly InventoryContext context;
 
-        public InsertProductHandler(InventoryContext context)
+
+        private readonly IProductService productService;
+
+        public InsertProductHandler(IProductService productService)
         {
-            this.context = context;
+            this.productService = productService;
         }
-        public async Task<Product> Handle(InsertProductCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseDTO<ProductDto>> Handle(InsertProductCommand request, CancellationToken cancellationToken)
         {
-            await context.AddAsync(request.Product);
-            context.SaveChanges();
-            return await Task.FromResult(request.Product);
+            return await productService.InsertProductAsync(request.Product);
+
         }
     }
 }
