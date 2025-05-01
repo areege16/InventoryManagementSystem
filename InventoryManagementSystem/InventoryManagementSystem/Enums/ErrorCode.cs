@@ -8,6 +8,7 @@
         Unauthorized = 3,
         ServerError = 4,
         Conflict = 5,
-        BadRequest = 6
+        BadRequest = 6,
+        NotFound=7
     }
 }

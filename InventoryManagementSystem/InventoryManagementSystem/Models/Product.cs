@@ -8,7 +8,7 @@ namespace InventoryManagementSystem.Models
         public string Name { set; get; }
         public double Price { set; get; }
         public string? Description { set; get; }
-        public bool IsDeleted { set; get; }
+        public bool IsDeleted { set; get; } = false;
 
         public ICollection<ProductInventory> productInventories { set; get; }
 

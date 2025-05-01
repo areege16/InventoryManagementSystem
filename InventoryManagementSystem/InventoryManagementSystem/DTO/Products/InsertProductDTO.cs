@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystem.DTO
+﻿namespace InventoryManagementSystem.DTO.Products
 {
     public class InsertProductDTO
     {

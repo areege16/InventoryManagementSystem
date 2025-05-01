@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystem.DTO
+﻿namespace InventoryManagementSystem.DTO.Products
 {
     public class ProductDto
     {
@@ -6,5 +6,7 @@
         public string Name { get; set; }          
         public double Price { get; set; }         
         public string? Description { get; set; }
+        public bool isDeleted { get; set; }
+
     }
 }

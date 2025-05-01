@@ -1,9 +1,7 @@
-﻿using InventoryManagementSystem.Data;
-using InventoryManagementSystem.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace InventoryManagementSystem.Repositories
+namespace InventoryManagementSystem.Data
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

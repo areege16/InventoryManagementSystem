@@ -1,5 +1,4 @@
-﻿using InventoryManagementSystem.Enums;
-
+﻿
 namespace InventoryManagementSystem.DTO
 {
     public class ResponseDTO<T>

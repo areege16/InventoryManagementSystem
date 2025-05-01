@@ -1,11 +1,5 @@
-﻿using InventoryManagementSystem.CQRS.Commands;
-using InventoryManagementSystem.CQRS.Queries;
-using InventoryManagementSystem.Data;
-using InventoryManagementSystem.DTO;
-using InventoryManagementSystem.Models;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿
+using InventoryManagementSystem.CQRS.Products.Queries;
 
 namespace InventoryManagementSystem.Controllers
 {
@@ -21,13 +15,9 @@ namespace InventoryManagementSystem.Controllers
             this.inventoryContext = inventoryContext;
             this.mediator = mediator;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetProduct()
-        {
-            var result = await mediator.Send(new GetAllProductQuery());
-            return Ok(result);
-        }
-        [HttpPost]
+      
+        #region Add New Product
+        [HttpPost] //api/Product
         public async Task<IActionResult> InsertProduct(InsertProductDTO product)
         {
             if (!ModelState.IsValid)
@@ -35,12 +25,58 @@ namespace InventoryManagementSystem.Controllers
             var result = await mediator.Send(new InsertProductCommand(product));
             return Ok(result);
         }
-        //public async Task<ResponseDTO<ProductDto>> InsertProduct(InsertProductDTO product)
-        //{
-        //    var result = await mediator.Send(new InsertProductCommand(product));
-        //    return result;
-        //}
+        #endregion
 
+        #region Update Product
 
+        [HttpPut("{id:int}")] //api/Product
+        public async Task<IActionResult> UpdateProduct(int id, UpdateProductDto product)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = await mediator.Send(new UpdateProductCommand(product) { id = id});
+            return Ok(result);
+        }
+        #endregion
+
+        #region Soft Delete Product
+
+        [HttpDelete("{id:int}")] //api/Product
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            await mediator.Send(new DeleteProductCommand(id));
+            return NoContent();
+        }
+        #endregion
+
+        #region Get Details Product
+
+        [HttpGet("GetProductDetails/{id:int}")] //api/Product
+        public async Task<IActionResult> GetProductDetails(int id)
+        {
+            var result = await mediator.Send(new GetDetailsProductQuery(id));
+            return Ok(result);
+        }
+        #endregion
+
+        #region Get All Products
+
+        [HttpGet("GetAllProducts")] //api/Product
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var result = await mediator.Send(new GetAllProductQuery());
+            return Ok(result);
+        }
+        #endregion
+
+        #region Get With Product Quantity 
+
+        [HttpGet("GetWithProductQuantity")] 
+        public async Task<IActionResult> GetWithProductQuantity()
+        {
+            var result = await mediator.Send(new GetProductsWithQuantityQuery());
+            return Ok(result);
+        }
+        #endregion
     }
 }

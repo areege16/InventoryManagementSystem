@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace InventoryManagementSystem.Interfaces
+﻿namespace InventoryManagementSystem.Data
 {
     public interface IGenericRepository<T>
     {

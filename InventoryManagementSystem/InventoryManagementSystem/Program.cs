@@ -1,18 +1,3 @@
-using InventoryManagementSystem.CQRS.Commands;
-using InventoryManagementSystem.Data;
-using InventoryManagementSystem.Interfaces;
-using InventoryManagementSystem.Mappings;
-using InventoryManagementSystem.Models;
-using InventoryManagementSystem.Repositories;
-using InventoryManagementSystem.Services;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
-using System.Text;
-
 namespace InventoryManagementSystem
 {
     public class Program
@@ -24,12 +9,13 @@ namespace InventoryManagementSystem
             // Add services to the container.
 
             builder.Services.AddControllers();
-            //builder.Services.AddMediatR(typeof(Program).Assembly);
             builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            //builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             builder.Services.AddScoped<IproductRepository, ProductRepository>();
 
@@ -76,6 +62,9 @@ namespace InventoryManagementSystem
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            MapperService.Mapper = app.Services.GetService<IMapper>();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
