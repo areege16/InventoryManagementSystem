@@ -12,7 +12,7 @@ namespace InventoryManagementSystem.Data
         public DbSet<ProductInventory>  productInventories { get; set; }
         public DbSet<Transaction>  transactions { get; set; }
         public DbSet<Warehouses>  warehouses { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        //public DbSet<ApplicationUser> Users { get; set; }
 
     }
 }

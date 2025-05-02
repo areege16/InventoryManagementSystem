@@ -1,3 +1,5 @@
+using InventoryManagementSystem.Middlewares;
+
 namespace InventoryManagementSystem
 {
     public class Program
@@ -10,14 +12,18 @@ namespace InventoryManagementSystem
 
             builder.Services.AddControllers();
             builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddScoped<IProductService, ProductService>();
+            //builder.Services.AddScoped<IProductService, ProductService>();
             //builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddScoped<TransactionMiddleware>();
+            builder.Services.AddHttpContextAccessor();
+
+
 
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            builder.Services.AddScoped<IproductRepository, ProductRepository>();
+            //builder.Services.AddScoped<IproductRepository, ProductRepository>();
 
             //connectionString
             builder.Services.AddDbContext<InventoryContext>(option =>
@@ -64,6 +70,8 @@ namespace InventoryManagementSystem
             var app = builder.Build();
 
             MapperService.Mapper = app.Services.GetService<IMapper>();
+            app.UseMiddleware<TransactionMiddleware>();
+
 
 
             // Configure the HTTP request pipeline.

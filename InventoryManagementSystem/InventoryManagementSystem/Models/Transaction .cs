@@ -22,7 +22,7 @@ namespace InventoryManagementSystem.Models
 
 
         [ForeignKey("warehousesFrom")]
-        public int warehousesIDFrom { set; get; }
+        public int? warehousesIDFrom { set; get; }
         public Warehouses warehousesFrom  { get; set; }
 
 

@@ -10,6 +10,11 @@
             .ForMember(dest => dest.productID, opt => opt.MapFrom(src => src.ProductId))
             .ForMember(dest => dest.WarehousesID, opt => opt.MapFrom(src => src.WarehouseId));
 
+            CreateMap<AddStockDTO, ProductInventory>()
+           .ForMember(dest => dest.productID, opt => opt.MapFrom(src => src.ProductId))
+           .ForMember(dest => dest.WarehousesID, opt => opt.MapFrom(src => src.WarehouseId));
+
+            CreateMap<TransferStockDTO, ProductInventory>();
 
         }
     }

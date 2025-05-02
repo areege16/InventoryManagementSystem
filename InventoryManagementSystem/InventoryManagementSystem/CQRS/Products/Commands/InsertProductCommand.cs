@@ -13,12 +13,10 @@
     public class InsertProductCommandHandler : IRequestHandler<InsertProductCommand, ResponseDTO<ProductDto>>
     {
         private readonly IGenericRepository<Product> repository;
-        private readonly IMapper mapper;
 
         public InsertProductCommandHandler(IGenericRepository<Product> repository, IMapper mapper)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
 
         public async Task<ResponseDTO<ProductDto>>  Handle(InsertProductCommand request, CancellationToken cancellationToken)

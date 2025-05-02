@@ -23,7 +23,6 @@ namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
             this.repository = repository;
             this.mapper = mapper;
         }
-
         public async Task<ResponseDTO<AddInventoryDTO>> Handle(InsertInventoryCommand request, CancellationToken cancellationToken)
         {
             var DTO = request.inventoryDTO; 
@@ -36,11 +35,7 @@ namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
 
             if (ExistingProducInventory != null)
             {
-                ExistingProducInventory.Quantity += request.inventoryDTO.Quantity;
-                repository.Update(ExistingProducInventory);
-                await repository.SaveAsync();
-
-
+                return ResponseDTO<AddInventoryDTO>.Error(ErrorCode.Conflict, "This product already exists in the inventory for the selected warehouse");
             }
             else
             {

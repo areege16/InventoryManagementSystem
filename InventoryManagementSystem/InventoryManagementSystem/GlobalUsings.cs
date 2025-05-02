@@ -16,7 +16,6 @@ global using AutoMapper;
 global using InventoryManagementSystem.DTO;
 global using InventoryManagementSystem.Enums;
 global using InventoryManagementSystem.Interfaces;
-global using InventoryManagementSystem.Repositories;
 global using InventoryManagementSystem.Services;
 
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -27,4 +26,7 @@ global using AutoMapper.QueryableExtensions;
 global using System.Linq.Expressions;
 
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+global using InventoryManagementSystem.CQRS.InventoryProduct.Commands;
+global using InventoryManagementSystem.DTO.ProductInventoryDto;
 

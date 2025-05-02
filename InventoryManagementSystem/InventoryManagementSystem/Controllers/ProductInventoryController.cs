@@ -1,9 +1,6 @@
-﻿using InventoryManagementSystem.CQRS.InventoryProduct.Commands;
-using InventoryManagementSystem.DTO.ProductInventoryDto;
-using InventoryManagementSystem.Models;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿
+using InventoryManagementSystem.CQRS.Orchestrators;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InventoryManagementSystem.Controllers
 {
@@ -22,6 +19,8 @@ namespace InventoryManagementSystem.Controllers
             this.inventoryContext = inventoryContext;
             this.mediator = mediator;
         }
+
+        #region Insert Inventory
         [HttpPost]
         public async Task<IActionResult> InsertInventory(AddInventoryDTO Inventory)
         {
@@ -30,5 +29,40 @@ namespace InventoryManagementSystem.Controllers
             var result = await mediator.Send(new InsertInventoryCommand(Inventory));
             return Ok(result);
         }
+        #endregion
+
+        #region Add Stock
+        [HttpPost("AddStock")]
+        [Authorize]
+        public async Task<IActionResult> AddStock(AddStockDTO addStockDTO)
+        {
+            var result = await mediator.Send(new AddStockOrchestrator(addStockDTO));
+            return Ok(result);
+        }
+        #endregion
+
+        #region remove Stock
+        [HttpPost("removeStock")]
+        [Authorize]
+        public async Task<IActionResult> removeStock(RemoveStockDTO removeStock)
+        {
+            var result = await mediator.Send(new RemoveStockOrchestrator(removeStock));
+            return Ok(result);
+        }
+        #endregion
+
+        #region transfer Stock
+        [HttpPost("transferStock")]
+        [Authorize]
+        public async Task<IActionResult> transferStock(TransferStockDTO  transferStockDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await mediator.Send(new TransferStockOrchestrator(transferStockDTO));
+            return Ok(result);
+        }
+        #endregion
+
     }
 }
