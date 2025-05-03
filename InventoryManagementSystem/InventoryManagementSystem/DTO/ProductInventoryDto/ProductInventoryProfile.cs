@@ -16,6 +16,10 @@
 
             CreateMap<TransferStockDTO, ProductInventory>();
 
+            CreateMap<GetLowStockProductDTO, ProductInventory>()
+                .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.productInventoryID))
+                .ReverseMap();
+
         }
     }
 }

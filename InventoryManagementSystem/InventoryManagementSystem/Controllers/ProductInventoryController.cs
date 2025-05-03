@@ -1,7 +1,4 @@
 ﻿
-using InventoryManagementSystem.CQRS.Orchestrators;
-using Microsoft.AspNetCore.Authorization;
-
 namespace InventoryManagementSystem.Controllers
 {
 
@@ -63,6 +60,16 @@ namespace InventoryManagementSystem.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region Report when quantity lower than lowStock
+        [HttpGet("low-stock")]
+        public async Task<IActionResult> GetLowStockProducts()
+        {
+            var result = await mediator.Send(new GetLowStockProductQueries());
+            return Ok(result);
+        }
+        #endregion
+
 
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace InventoryManagementSystem.Controllers
+﻿using InventoryManagementSystem.DTO.Account;
+
+namespace InventoryManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,6 +32,18 @@
                 IdentityResult result = await userManager.CreateAsync(user, UserFormConsumer.Password);
                 if (result.Succeeded)
                 {
+                    if (!string.IsNullOrEmpty(UserFormConsumer.Role))
+                    {
+                        var roleResult = await userManager.AddToRoleAsync(user, UserFormConsumer.Role);
+                        if (!roleResult.Succeeded) 
+                        {
+                            foreach (var error in roleResult.Errors)
+                            {
+                                ModelState.AddModelError("", error.Description); 
+                            }
+                            return BadRequest(ModelState);
+                        }
+                    }
                     return Ok("Account Create Success");
                 }
                 foreach (var item in result.Errors)
@@ -70,6 +84,8 @@
                                 claims.Add(new Claim(ClaimTypes.Role, role));
                             }
                         }
+
+
                         ///--------------------------------------------------
                         SymmetricSecurityKey signinkey = new(Encoding.UTF8.GetBytes(configur["JWT:Key"]));
 

@@ -14,7 +14,7 @@
     {
         private readonly IGenericRepository<Product> repository;
 
-        public InsertProductCommandHandler(IGenericRepository<Product> repository, IMapper mapper)
+        public InsertProductCommandHandler(IGenericRepository<Product> repository)
         {
             this.repository = repository;
         }

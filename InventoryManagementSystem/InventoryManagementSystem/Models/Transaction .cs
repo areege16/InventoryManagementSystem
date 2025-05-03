@@ -1,6 +1,4 @@
-﻿using InventoryManagementSystem.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace InventoryManagementSystem.Models
 {
     public class Transaction

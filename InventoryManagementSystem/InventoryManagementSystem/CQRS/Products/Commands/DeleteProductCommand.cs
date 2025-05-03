@@ -14,12 +14,10 @@ namespace InventoryManagementSystem.CQRS.Products.Commands
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     {
         private readonly IGenericRepository<Product> repository;
-        private readonly IMapper mapper;
 
-        public DeleteProductCommandHandler(IGenericRepository<Product> repository , IMapper mapper)
+        public DeleteProductCommandHandler(IGenericRepository<Product> repository )
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
         public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {

@@ -1,4 +1,6 @@
 ﻿
+using Hangfire;
+
 namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
 {
     public class TransferStockCommand : IRequest<ResponseDTO<TransferStockDTO>>
@@ -51,16 +53,24 @@ namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
                 await repository.SaveAsync();
             }
 
-             sourceInventory.Quantity -= dto.Quantity;
-             targetInventory.Quantity += dto.Quantity;
 
-             repository.Update(sourceInventory);
-             repository.Update(targetInventory);
+            sourceInventory.Quantity -= dto.Quantity;
+            targetInventory.Quantity += dto.Quantity;
+
+            repository.Update(sourceInventory);
+            repository.Update(targetInventory);
 
             await repository.SaveAsync();
 
-            return ResponseDTO<TransferStockDTO>.Success(dto, "Stock transferred successfully");
 
+            if (sourceInventory.Quantity < sourceInventory.LowStockThreshold)
+            {
+                BackgroundJob.Enqueue(() => Console.WriteLine($"Product ID {sourceInventory.productID} is low on stock. Quantity: {sourceInventory.Quantity}, Threshold: {sourceInventory.LowStockThreshold}"));
+            }
+
+                return ResponseDTO<TransferStockDTO>.Success(dto, "Stock transferred successfully");
+
+            }
         }
     }
-}
+

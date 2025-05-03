@@ -1,4 +1,5 @@
-﻿
+﻿using Hangfire;
+
 namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
 {
     public class RemoveStockCommand:IRequest<ResponseDTO<RemoveStockDTO>>
@@ -7,18 +8,14 @@ namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
         {
             RemoveStock = removeStock;
         }
-
         public RemoveStockDTO RemoveStock { get; }
     }
     public class RemoveStockCommandHandler : IRequestHandler<RemoveStockCommand, ResponseDTO<RemoveStockDTO>>
         {
         private readonly IGenericRepository<ProductInventory> repository;
-        private readonly IMapper mapper;
-
-        public RemoveStockCommandHandler(IGenericRepository<ProductInventory> repository , IMapper mapper)
+        public RemoveStockCommandHandler(IGenericRepository<ProductInventory> repository)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
         public async Task<ResponseDTO<RemoveStockDTO>> Handle(RemoveStockCommand request, CancellationToken cancellationToken)
         {
@@ -37,6 +34,11 @@ namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
                 await repository.SaveAsync();
 
                 DTO.ProductInventoryID = ExistingProducInventory.id;
+
+                if (ExistingProducInventory.Quantity < ExistingProducInventory.LowStockThreshold)
+                {
+                    BackgroundJob.Enqueue(() => Console.WriteLine($"Product ID {ExistingProducInventory.productID} is low on stock. Quantity: {ExistingProducInventory.Quantity}, Threshold: {ExistingProducInventory.LowStockThreshold}"));
+                }
 
                 return ResponseDTO<RemoveStockDTO>.Success(DTO, "Updated quantity successfully");
             }

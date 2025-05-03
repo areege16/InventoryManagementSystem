@@ -8,21 +8,16 @@ namespace InventoryManagementSystem.CQRS.Products.Commands
         {
             Product = product;
         }
-
         public UpdateProductDto Product { get; set; }
         public int id { get; set; }
-
     }
-
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, ResponseDTO<ProductDto>>
     {
         private readonly IGenericRepository<Product> repository;
-        private readonly IMapper mapper;
 
-        public UpdateProductCommandHandler(IGenericRepository<Product> repository, IMapper mapper)
+        public UpdateProductCommandHandler(IGenericRepository<Product> repository)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
 
         public async Task<ResponseDTO<ProductDto>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
