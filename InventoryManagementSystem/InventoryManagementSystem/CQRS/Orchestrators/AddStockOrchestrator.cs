@@ -1,10 +1,4 @@
 ﻿
-using AutoMapper;
-using InventoryManagementSystem.CQRS.Transactions.Command;
-using InventoryManagementSystem.DTO.ProductInventoryDto;
-using InventoryManagementSystem.DTO.TrasactionsDTO;
-using InventoryManagementSystem.Models;
-
 namespace InventoryManagementSystem.CQRS.Orchestrators
 {
     public class AddStockOrchestrator:IRequest<ResponseDTO<AddStockDTO>>

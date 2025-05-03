@@ -38,3 +38,8 @@ global using InventoryManagementSystem.DTO.TrasactionsDTO;
 
 global using InventoryManagementSystem.CQRS.Notifications.Commands;
 
+global using Hangfire;
+
+global using InventoryManagementSystem.Jobs;
+global using InventoryManagementSystem.Middlewares;
+

@@ -1,5 +1,4 @@
-﻿using InventoryManagementSystem.DTO.Products;
-
+﻿
 namespace InventoryManagementSystem.CQRS.Products.Queries
 {
     public class GetDetailsProductQuery:IRequest<ResponseDTO<ProductDto>>
@@ -13,12 +12,10 @@ namespace InventoryManagementSystem.CQRS.Products.Queries
     public class GetDetailsProductQueryHandler : IRequestHandler<GetDetailsProductQuery, ResponseDTO<ProductDto>>
     {
         private readonly IGenericRepository<Product> repository;
-        private readonly IMapper mapper;
 
-        public GetDetailsProductQueryHandler(IGenericRepository<Product> repository , IMapper mapper)
+        public GetDetailsProductQueryHandler(IGenericRepository<Product> repository)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
         public async Task<ResponseDTO<ProductDto>> Handle(GetDetailsProductQuery request, CancellationToken cancellationToken)
         {

@@ -1,6 +1,3 @@
-using Hangfire;
-using InventoryManagementSystem.Jobs;
-using InventoryManagementSystem.Middlewares;
 
 namespace InventoryManagementSystem
 {

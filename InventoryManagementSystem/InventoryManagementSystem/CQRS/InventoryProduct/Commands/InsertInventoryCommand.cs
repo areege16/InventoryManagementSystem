@@ -1,7 +1,4 @@
 ﻿
-using InventoryManagementSystem.DTO.ProductInventoryDto;
-using InventoryManagementSystem.DTO.Products;
-
 namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
 {
     public class InsertInventoryCommand:IRequest<ResponseDTO<AddInventoryDTO>>
@@ -16,12 +13,10 @@ namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
     public class InsertInventoryCommandHandler : IRequestHandler<InsertInventoryCommand,ResponseDTO<AddInventoryDTO>>
     {
         private readonly IGenericRepository<ProductInventory> repository;
-        private readonly IMapper mapper;
 
-        public InsertInventoryCommandHandler(IGenericRepository<ProductInventory> repository, IMapper mapper)
+        public InsertInventoryCommandHandler(IGenericRepository<ProductInventory> repository)
         {
             this.repository = repository;
-            this.mapper = mapper;
         }
         public async Task<ResponseDTO<AddInventoryDTO>> Handle(InsertInventoryCommand request, CancellationToken cancellationToken)
         {

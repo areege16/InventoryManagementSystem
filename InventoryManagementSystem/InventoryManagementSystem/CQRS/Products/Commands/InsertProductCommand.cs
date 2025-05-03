@@ -1,7 +1,5 @@
 ﻿namespace InventoryManagementSystem.CQRS.Products.Commands
-{
-    //public record InsertProductCommand(InsertProductDTO Product): IRequest<ResponseDTO<ProductDto>>;
-    public class InsertProductCommand: IRequest<ResponseDTO<ProductDto>>
+{    public class InsertProductCommand: IRequest<ResponseDTO<ProductDto>>
     {
         public InsertProductDTO Product { get; set; }
         public InsertProductCommand(InsertProductDTO product)

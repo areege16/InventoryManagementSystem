@@ -1,6 +1,4 @@
-﻿using InventoryManagementSystem.Services;
-
-namespace InventoryManagementSystem.CQRS.Products.Commands
+﻿namespace InventoryManagementSystem.CQRS.Products.Commands
 {
     public class UpdateProductCommand:IRequest<ResponseDTO<ProductDto>>
     {

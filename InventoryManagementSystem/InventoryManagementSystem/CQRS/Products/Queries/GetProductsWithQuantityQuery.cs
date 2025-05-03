@@ -1,6 +1,4 @@
-﻿
-
-namespace InventoryManagementSystem.CQRS.Products.Queries
+﻿namespace InventoryManagementSystem.CQRS.Products.Queries
 {
     public class GetProductsWithQuantityQuery:IRequest<ResponseDTO<List<GetProductWithQuentityDTO>>>
     {

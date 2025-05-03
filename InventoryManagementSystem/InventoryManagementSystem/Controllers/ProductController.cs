@@ -51,7 +51,7 @@ namespace InventoryManagementSystem.Controllers
 
         #region Get Details Product
 
-        [HttpGet("GetProductDetails/{id:int}")] //api/Product
+        [HttpGet("GetProductDetails/{id:int}")] //api/Product/GetProductDetails/{id}
         public async Task<IActionResult> GetProductDetails(int id)
         {
             var result = await mediator.Send(new GetDetailsProductQuery(id));
@@ -61,7 +61,7 @@ namespace InventoryManagementSystem.Controllers
 
         #region Get All Products
 
-        [HttpGet("GetAllProducts")] //api/Product
+        [HttpGet("GetAllProducts")] //api/Product/GetAllProducts
         public async Task<IActionResult> GetAllProducts()
         {
             var result = await mediator.Send(new GetAllProductQuery());

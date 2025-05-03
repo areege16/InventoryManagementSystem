@@ -1,5 +1,4 @@
-﻿using Hangfire;
-
+﻿
 namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
 {
     public class RemoveStockCommand:IRequest<ResponseDTO<RemoveStockDTO>>

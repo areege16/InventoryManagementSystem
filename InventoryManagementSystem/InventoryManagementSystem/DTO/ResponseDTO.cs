@@ -30,15 +30,5 @@ namespace InventoryManagementSystem.DTO
         }
     }
 
-    //public class SuccessResponseDTO<T> : ResponseDTO<T>
-    //{
-
-    //}
-
-    //public class ErrorResponseDTO : ResponseDTO<bool>
-    //{
-
-    //}
-
 }
 

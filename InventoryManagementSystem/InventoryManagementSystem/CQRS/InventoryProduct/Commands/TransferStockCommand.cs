@@ -1,7 +1,4 @@
-﻿
-using Hangfire;
-
-namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
+﻿namespace InventoryManagementSystem.CQRS.InventoryProduct.Commands
 {
     public class TransferStockCommand : IRequest<ResponseDTO<TransferStockDTO>>
     {

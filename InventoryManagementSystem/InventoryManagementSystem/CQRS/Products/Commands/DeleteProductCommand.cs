@@ -1,5 +1,4 @@
-﻿using InventoryManagementSystem.DTO.Products;
-
+﻿
 namespace InventoryManagementSystem.CQRS.Products.Commands
 {
     public class DeleteProductCommand:IRequest
@@ -8,7 +7,6 @@ namespace InventoryManagementSystem.CQRS.Products.Commands
         public DeleteProductCommand(int id)
         {
             this.id = id;
-
         }
     }
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>

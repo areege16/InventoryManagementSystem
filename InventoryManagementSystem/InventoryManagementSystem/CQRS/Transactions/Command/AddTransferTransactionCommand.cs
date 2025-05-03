@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using InventoryManagementSystem.DTO.TrasactionsDTO;
-
+﻿
 namespace InventoryManagementSystem.CQRS.Transactions.Command
 {
     public class AddTransferTransactionCommand: IRequest<ResponseDTO<TransferTransactionDto>>

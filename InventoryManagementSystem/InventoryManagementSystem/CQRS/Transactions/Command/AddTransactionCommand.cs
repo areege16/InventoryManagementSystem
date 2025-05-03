@@ -1,5 +1,4 @@
-﻿using InventoryManagementSystem.DTO.TrasactionsDTO;
-
+﻿
 namespace InventoryManagementSystem.CQRS.Transactions.Command
 {
     public class AddTransactionCommand:IRequest<ResponseDTO<AddTransactionDto>>
@@ -15,10 +14,9 @@ namespace InventoryManagementSystem.CQRS.Transactions.Command
     {
         private readonly IGenericRepository<Transaction> repository;
 
-        public AddTransactionCommandHandler(IGenericRepository<Transaction> repository , IMapper mapper)
+        public AddTransactionCommandHandler(IGenericRepository<Transaction> repository)
         {
             this.repository = repository;
-            //MapperService.Mapper = mapper;
         }
         public async Task<ResponseDTO<AddTransactionDto>> Handle(AddTransactionCommand request, CancellationToken cancellationToken)
         {

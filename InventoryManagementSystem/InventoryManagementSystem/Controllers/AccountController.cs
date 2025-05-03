@@ -1,6 +1,4 @@
-﻿using InventoryManagementSystem.DTO.Account;
-
-namespace InventoryManagementSystem.Controllers
+﻿namespace InventoryManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

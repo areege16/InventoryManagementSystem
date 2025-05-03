@@ -1,6 +1,4 @@
-﻿using InventoryManagementSystem.CQRS.Transactions.Command;
-using InventoryManagementSystem.DTO.TrasactionsDTO;
-
+﻿
 namespace InventoryManagementSystem.CQRS.Orchestrators
 {
     public class RemoveStockOrchestrator:IRequest<ResponseDTO<RemoveStockDTO>>
@@ -12,7 +10,6 @@ namespace InventoryManagementSystem.CQRS.Orchestrators
             this.removeStockDTO = removeStockDTO;
         }
     }
-
     public class RemoveStockOrchestratorHandler : IRequestHandler<RemoveStockOrchestrator, ResponseDTO<RemoveStockDTO>>
     {
         private readonly IMediator mediator;
